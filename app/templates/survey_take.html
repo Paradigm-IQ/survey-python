@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}{{ survey.title }}{% endblock %}
+{% block content %}
+<h1>{{ survey.title }}</h1>
+{% if survey.description %}<p class="muted">{{ survey.description }}</p>{% endif %}
+
+{% if questions %}
+<form method="post" action="/surveys/{{ survey.id }}/responses" class="stack">
+  {% for q in questions %}
+    <fieldset>
+      <legend>{{ loop.index }}. {{ q.prompt }}</legend>
+      {% if q.kind == "rating" %}
+        <div class="rating">
+          {% for n in range(1, 6) %}
+            <label><input type="radio" name="q_{{ q.id }}" value="{{ n }}"> {{ n }}</label>
+          {% endfor %}
+        </div>
+      {% else %}
+        <textarea name="q_{{ q.id }}" rows="3"></textarea>
+      {% endif %}
+    </fieldset>
+  {% endfor %}
+  <button type="submit">Submit</button>
+</form>
+{% else %}
+  <p class="empty">This survey has no questions yet.</p>
+{% endif %}
+{% endblock %}

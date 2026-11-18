@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Results: {{ survey.title }}{% endblock %}
+{% block content %}
+<h1>Results: {{ survey.title }}</h1>
+<p class="muted">{{ response_count }} response{{ "" if response_count == 1 else "s" }}</p>
+
+{% if results %}
+  {% for r in results %}
+    <section class="card">
+      <h2>{{ r.prompt }}</h2>
+      {# TODO: render per question kind (average + distribution bars for rating, list for text) #}
+    </section>
+  {% endfor %}
+{% else %}
+  <p class="empty">No results yet.</p>
+{% endif %}
+{% endblock %}

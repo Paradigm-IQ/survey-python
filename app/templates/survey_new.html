@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}New survey{% endblock %}
+{% block content %}
+<h1>New survey</h1>
+<form method="post" action="/surveys" class="stack">
+  <label>Title
+    <input name="title" required maxlength="200" autofocus>
+  </label>
+  <label>Description
+    <textarea name="description" rows="3"></textarea>
+  </label>
+  <button type="submit">Create survey</button>
+</form>
+{% endblock %}

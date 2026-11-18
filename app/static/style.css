@@ -1,0 +1,104 @@
+:root {
+  --bg: #f7f7f8;
+  --surface: #ffffff;
+  --text: #1c1c1e;
+  --muted: #6b6b73;
+  --border: #e2e2e6;
+  --accent: #3b5bdb;
+  --accent-text: #ffffff;
+  --radius: 8px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #141416;
+    --surface: #1e1e21;
+    --text: #ececef;
+    --muted: #9a9aa3;
+    --border: #2e2e33;
+    --accent: #748ffc;
+    --accent-text: #0b0b0c;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+a { color: var(--accent); }
+
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+.brand { font-weight: 600; color: var(--text); text-decoration: none; }
+
+.container { max-width: 760px; margin: 0 auto; padding: 24px 16px 64px; }
+
+h1 { margin-top: 0; }
+.muted { color: var(--muted); }
+.empty { color: var(--muted); font-style: italic; }
+
+.card-list { list-style: none; padding: 0; display: grid; gap: 12px; }
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+.card-list .card { display: flex; justify-content: space-between; gap: 16px; align-items: center; }
+.card h2 { margin: 0 0 4px; font-size: 1.1rem; }
+.card p { margin: 0; }
+.actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+.tag {
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--border);
+  color: var(--muted);
+}
+
+/* Forms */
+.stack { display: grid; gap: 16px; }
+label { display: grid; gap: 4px; font-weight: 500; }
+input, textarea, select {
+  font: inherit;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+}
+fieldset {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  padding: 12px 16px 16px;
+}
+legend { font-weight: 600; padding: 0 4px; }
+.rating { display: flex; gap: 16px; }
+.rating label { display: flex; gap: 4px; align-items: center; font-weight: 400; }
+
+button, .button {
+  font: inherit;
+  display: inline-block;
+  padding: 8px 16px;
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--accent);
+  color: var(--accent-text);
+  text-decoration: none;
+  cursor: pointer;
+  justify-self: start;
+}
+button:hover, .button:hover { filter: brightness(1.08); }

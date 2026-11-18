@@ -1,0 +1,24 @@
+[project]
+name = "survey"
+version = "0.1.0"
+description = "Small employee survey tool: create a survey, collect responses, view results."
+authors = [
+    { name = "Adam Bronte", email = "adam.bronte@paradigmiq.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.165.0",
+    "jinja2>=3.1.6",
+    "python-multipart>=0.0.34",
+    "sqlmodel>=0.0.50",
+    "uvicorn[standard]>=0.54.0",
+]
+
+[dependency-groups]
+dev = [
+    "httpx2>=2.16.2",
+    "pytest>=9.2.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

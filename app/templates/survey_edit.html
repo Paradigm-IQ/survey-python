@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Edit: {{ survey.title }}{% endblock %}
+{% block content %}
+<h1>{{ survey.title }}</h1>
+{% if survey.description %}<p class="muted">{{ survey.description }}</p>{% endif %}
+
+<h2>Questions</h2>
+{% if questions %}
+  <ol class="questions">
+    {% for q in questions %}
+      <li>{{ q.prompt }} <span class="tag">{{ q.kind }}</span></li>
+    {% endfor %}
+  </ol>
+{% else %}
+  <p class="empty">No questions yet.</p>
+{% endif %}
+
+<h3>Add a question</h3>
+<form method="post" action="/surveys/{{ survey.id }}/questions" class="stack">
+  <label>Prompt
+    <input name="prompt" required>
+  </label>
+  <label>Type
+    <select name="kind">
+      <option value="text">Free text</option>
+      <option value="rating">Rating (1–5)</option>
+      {# TODO: multiple choice? #}
+    </select>
+  </label>
+  <button type="submit">Add question</button>
+</form>
+
+<p class="actions">
+  <a href="/surveys/{{ survey.id }}/take">Preview / take survey →</a>
+</p>
+{% endblock %}
