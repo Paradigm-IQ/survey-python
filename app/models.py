@@ -1,13 +1,9 @@
-"""Data layer.
+"""Data model for the employee survey tool.
 
-Survey is wired end-to-end as an example of the pattern.
-Everything else is a TODO -- decide the shape together.
+Only Survey exists; questions/responses/answers are TODO.
 
-Open questions worth discussing before writing code:
-  - Question types: free text? 1-5 rating (Likert)? multiple choice? Which first?
-  - Is a survey editable after it has responses? Draft / published / closed states?
-  - Anonymous responses vs. tied to an employee? (Trust matters for employee surveys.)
-  - How should results be aggregated per question type?
+No migrations: tables are created on startup. After changing a model,
+`rm survey.db` and restart.
 """
 
 from datetime import UTC, datetime
@@ -25,31 +21,15 @@ class Survey(SQLModel, table=True):
     description: str = ""
     created_at: datetime = Field(default_factory=utcnow)
 
-    # TODO: relationship to questions, e.g.
-    #   questions: list["Question"] = Relationship(back_populates="survey")
-    # TODO: status (draft/open/closed)?
 
+# TODO: questions
+#   - which survey it belongs to, prompt text, ordering
+#   - question type? (e.g. rating 1-5, free text, multiple choice)
+#   - multiple choice options -- column (JSON) or separate table?
 
-# TODO: Question
-#   - belongs to a Survey (survey_id FK)
-#   - prompt text, kind (text / rating / choice), position/order, required?
-#   - choice options: separate table, or JSON column?
-#
-# class Question(SQLModel, table=True):
-#     ...
+# TODO: responses
+#   - one submission of a survey by one employee
+#   - anonymous vs. identified? submitted timestamp?
 
-
-# TODO: Response -- one employee's submission of one survey
-#   - survey_id FK, submitted_at
-#   - respondent identity (or deliberately none, for anonymity)
-#
-# class Response(SQLModel, table=True):
-#     ...
-
-
-# TODO: Answer -- one answer to one question within a Response
-#   - response_id FK, question_id FK
-#   - value storage: single text column? separate int column for ratings?
-#
-# class Answer(SQLModel, table=True):
-#     ...
+# TODO: answers
+#   - one row per (response, question) with the value

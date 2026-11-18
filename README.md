@@ -20,9 +20,10 @@ Tests: `uv run pytest`
 app/
   main.py        FastAPI app, startup (creates tables), static mount
   db.py          engine + session dependency (SQLite file: ./survey.db)
-  models.py      SQLModel tables  <- Survey done; Question/Response/Answer are TODO
+  models.py      SQLModel tables  <- only Survey exists; questions/responses/answers are TODO
   routes.py      HTML routes      <- survey list/create done; the rest are TODO
-  templates/     Jinja2 pages (base, index, new, edit, take, results)
+  seed.py        sample data (`uv run python -m app.seed`)
+  templates/     Jinja2 pages (base, index, new, take, results)
   static/        style.css
 tests/           pytest + TestClient against an in-memory SQLite DB
 ```
@@ -32,12 +33,16 @@ tests/           pytest + TestClient against an in-memory SQLite DB
 | Flow                          | Route                                  | State |
 |-------------------------------|----------------------------------------|-------|
 | List surveys                  | `GET /`                                | ✅    |
-| Create survey                 | `GET /surveys/new`, `POST /surveys`    | ✅    |
-| Add questions                 | `POST /surveys/{id}/questions`         | TODO (501) |
-| Take survey / submit response | `GET /surveys/{id}/take`, `POST /surveys/{id}/responses` | TODO (501) |
+| Create survey (title, description) | `GET /surveys/new`, `POST /surveys` | ✅    |
+| Question builder (on the new-survey form) | `POST /surveys`            | TODO  |
+| Take survey                   | `GET /surveys/{id}`                    | TODO (placeholder) |
+| Submit response               | `POST /surveys/{id}/responses`         | TODO (501) |
 | View results                  | `GET /surveys/{id}/results`            | TODO (placeholder) |
+
+Everything involving questions, responses, and results is stubbed. Search for `TODO`.
 
 ## Notes
 
 - No migrations: tables are created on startup. After changing a model, `rm survey.db` and restart.
+- Sample data: `uv run python -m app.seed` (reset: `rm survey.db && uv run python -m app.seed`).
 - `SQL_ECHO=1` logs SQL; `DATABASE_URL` overrides the DB location.
